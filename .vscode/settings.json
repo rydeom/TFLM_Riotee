@@ -1,0 +1,9 @@
+{
+    "sdkRoot": "/home/kai/workspace/Riotee_Runtime",
+    "operSys": "Linux",
+    "gnuInstallRoot": "/usr/bin/",
+    "files.associations": {
+        "type_traits": "c",
+    },
+    "editor.formatOnSave": true,
+}
