@@ -1,5 +1,5 @@
-SDK_ROOT ?= path/to/sdk/
-GNU_INSTALL_ROOT ?= /usrb/bin/
+SDK_ROOT ?=
+GNU_INSTALL_ROOT ?=
 
 PREFIX := "$(GNU_INSTALL_ROOT)"arm-none-eabi-
 PRJ_ROOT := .
