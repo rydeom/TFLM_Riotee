@@ -40,7 +40,7 @@ make flash
 ### Visual Studio Code
 
  - Install Visual Studio Code from the [official website](https://code.visualstudio.com/) and open it.
- - On the left panel select `Extensions`, search for the `C/C++ Entension Pack` and install it.
+ - On the left panel select `Extensions`, search for the `C/C++ Extension Pack` and install it.
  - Open the project's folder via `File->Open Folder`.
 
 Adjust the three configuration keys in [.vscode/settings.json](.vscode/settings.json) according to your setup:
@@ -48,8 +48,10 @@ Adjust the three configuration keys in [.vscode/settings.json](.vscode/settings.
  - `operSys`: Mac, Linux or Win32
  - `gnuInstallRoot`: Location of arm-none-eabi toolchain, leave empty if it is in your `PATH` variable already.
 
-
+Restart Visual Studio Code.
 Open `main.c` and check that code-completion works and that all imports are correctly resolved. For example, selecting `riotee_wait_cap_charged()` and pressing `F12` should take you straight into the SDK's code.
+
+If you installed pyOCD into a virtual environment when setting up the SDK, press `Ctrl`+`Shift`+`p`, search for `Python: Select Interpreter`, and point it to the Python executable of your virtual environment.
 
 To install keyboard shortcuts, press `Ctrl`+`Shift`+`p`, type `Open Keyboard Shortcuts (JSON)` and press `Enter`, insert the following keybindings and save the file:
 
