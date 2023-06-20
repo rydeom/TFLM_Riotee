@@ -1,12 +1,12 @@
-SDK_ROOT ?=
+RIOTEE_SDK_ROOT ?=
 GNU_INSTALL_ROOT ?=
 
 PREFIX := "$(GNU_INSTALL_ROOT)"arm-none-eabi-
 PRJ_ROOT := .
 OUTPUT_DIR := _build
 
-ifndef SDK_ROOT
-  $(error SDK_ROOT is not set)
+ifndef RIOTEE_SDK_ROOT
+  $(error RIOTEE_SDK_ROOT is not set)
 endif
 
 SRC_FILES = \
@@ -15,4 +15,4 @@ SRC_FILES = \
 INC_FOLDERS = \
   $(PRJ_ROOT)/include
 
-include $(SDK_ROOT)/Makefile
+include $(RIOTEE_SDK_ROOT)/Makefile

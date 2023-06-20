@@ -1,5 +1,5 @@
 {
-    "sdkRoot": "C:/PATH/TO/SDK",
+    "rioteeSdkRoot": "C:/PATH/TO/SDK",
     "operSys": "Win32",
     "gnuInstallRoot": "",
     "files.associations": {

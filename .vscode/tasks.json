@@ -3,7 +3,7 @@
     "options": {
         "env": {
             "GNU_INSTALL_ROOT": "${config:gnuInstallRoot}",
-            "SDK_ROOT": "${config:sdkRoot}"
+            "RIOTEE_SDK_ROOT": "${config:rioteeSdkRoot}"
         }
     },
     "tasks": [

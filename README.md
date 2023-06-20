@@ -21,10 +21,10 @@ If you're not using GitHub, you can download this template by clicking on `Code-
 
 If you're planning to use Visual Studio Code for development you can skip this step and continue reading [here](#visual-studio-code).
 
-If you want to build the project from the commandline or some other IDE, set an environment variable called `SDK_ROOT` to the corresponding path on your machine.
+If you want to build the project from the commandline or some other IDE, set an environment variable called `RIOTEE_SDK_ROOT` to the corresponding path on your machine.
 
 ```shell
-export SDK_ROOT=[PATH TO RIOTEE SDK]
+export RIOTEE_SDK_ROOT=[PATH TO RIOTEE SDK]
 ```
 If the arm-none-eabi-gcc toolchain is not on your path, point to it with another environment variable:
 
@@ -44,7 +44,7 @@ make flash
  - Open the project's folder via `File->Open Folder`.
 
 Adjust the three configuration keys in [.vscode/settings.json](.vscode/settings.json) according to your setup:
- - `sdkRoot`: Path to the Riotee SDK
+ - `rioteeSdkRoot`: Path to the Riotee SDK
  - `operSys`: Mac, Linux or Win32
  - `gnuInstallRoot`: Location of arm-none-eabi toolchain, leave empty if it is in your `PATH` variable already.
 
