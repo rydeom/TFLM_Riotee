@@ -1,7 +1,6 @@
 RIOTEE_SDK_ROOT ?=
 GNU_INSTALL_ROOT ?=
 
-PREFIX := "$(GNU_INSTALL_ROOT)"arm-none-eabi-
 PRJ_ROOT := .
 OUTPUT_DIR := _build
 
