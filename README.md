@@ -51,7 +51,7 @@ Adjust the three configuration keys in [.vscode/settings.json](.vscode/settings.
 Restart Visual Studio Code.
 Open `main.c` and check that code-completion works and that all imports are correctly resolved. For example, selecting `riotee_wait_cap_charged()` and pressing `F12` should take you straight into the SDK's code.
 
-If you installed pyOCD into a virtual environment when setting up the SDK, press `Ctrl`+`Shift`+`p`, search for `Python: Select Interpreter`, and point it to the Python executable of your virtual environment.
+If you installed the `riotee-probe` Python package into a virtual environment when setting up the SDK, press `Ctrl`+`Shift`+`p`, search for `Python: Select Interpreter`, and point it to the Python executable of your virtual environment.
 
 To install keyboard shortcuts, press `Ctrl`+`Shift`+`p`, type `Open Keyboard Shortcuts (JSON)` and press `Enter`, insert the following keybindings and save the file:
 
