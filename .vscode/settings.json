@@ -1,9 +1,12 @@
 {
-    "rioteeSdkRoot": "C:/PATH/TO/SDK",
-    "operSys": "Win32",
-    "gnuInstallRoot": "",
+    "rioteeSdkRoot": "/Users/janstiefel/code/Riotee_SDK",
+    "operSys": "Linux",
+    "gnuInstallRoot": "/Applications/ArmGNUToolchain/13.2.Rel1/arm-none-eabi/bin/",
     "files.associations": {
         "type_traits": "c",
+        "cstring": "cpp",
+        "cstdint": "cpp",
+        "string": "cpp"
     },
     "editor.formatOnSave": true,
 }
