@@ -34,14 +34,12 @@ TfLiteStatus ProfileMemoryAndLatency()
 	tflite::MicroProfiler profiler;
 	HelloWorldOpResolver op_resolver;
 	TF_LITE_ENSURE_STATUS(RegisterOps(op_resolver));
-	MicroPrintf("ALL TESTS PASSED");
 
 	// Arena size just a round number. The exact arena usage can be determined
 	// using the RecordingMicroInterpreter.
 	constexpr int kTensorArenaSize = 3000;
 	uint8_t tensor_arena[kTensorArenaSize];
 	constexpr int kNumResourceVariables = 24;
-	MicroPrintf("ALL TESTS PASSED");
 
 	tflite::RecordingMicroAllocator *allocator(
 		tflite::RecordingMicroAllocator::Create(tensor_arena, kTensorArenaSize));
@@ -49,11 +47,8 @@ TfLiteStatus ProfileMemoryAndLatency()
 		tflite::GetModel(g_hello_world_float_model_data), op_resolver, allocator,
 		tflite::MicroResourceVariables::Create(allocator, kNumResourceVariables),
 		&profiler);
-	MicroPrintf("ALL TESTS PASSED");
 
 	TF_LITE_ENSURE_STATUS(interpreter.AllocateTensors());
-	MicroPrintf("ALL TESTS PASSED");
-
 	TFLITE_CHECK_EQ(interpreter.inputs_size(), 1);
 	interpreter.input(0)->data.f[0] = 1.f;
 	TF_LITE_ENSURE_STATUS(interpreter.Invoke());
