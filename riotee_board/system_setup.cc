@@ -1,5 +1,6 @@
 #include "tensorflow/lite/micro/system_setup.h"
 #include "riotee_timing.h"
+#include <riotee_uart.h>
 
 namespace tflite
 {
@@ -10,6 +11,7 @@ namespace tflite
     void InitializeTarget()
     {
         riotee_timing_init();
+        riotee_uart_init(PIN_D1, RIOTEE_UART_BAUDRATE_115200);
     }
 
 } // namespace tflite

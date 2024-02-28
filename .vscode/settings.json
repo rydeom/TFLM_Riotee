@@ -6,7 +6,10 @@
         "type_traits": "c",
         "cstring": "cpp",
         "cstdint": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "*.tcc": "cpp",
+        "cstdio": "cpp"
     },
     "editor.formatOnSave": true,
+    "cortex-debug.variableUseNaturalFormat": true,
 }

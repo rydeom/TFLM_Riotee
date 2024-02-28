@@ -21,39 +21,33 @@ limitations under the License.
 #if !defined(TF_LITE_STRIP_ERROR_STRINGS)
 #include "tensorflow/lite/micro/debug_log.h"
 #endif
-#include <printf.h>
 
 #if !defined(TF_LITE_STRIP_ERROR_STRINGS)
-namespace
-{
+namespace {
 
-  void VDebugLog(const char *format, ...)
-  {
-    va_list args;
-    va_start(args, format);
-    DebugLog(format, args);
-    va_end(args);
-  }
+void VDebugLog(const char* format, ...) {
+  va_list args;
+  va_start(args, format);
+  DebugLog(format, args);
+  va_end(args);
+}
 
-} // namespace
+}  // namespace
 
-void VMicroPrintf(const char *format, va_list args)
-{
+void VMicroPrintf(const char* format, va_list args) {
   DebugLog(format, args);
   // TODO(b/290051015): remove "\r\n"
   VDebugLog("\r\n");
 }
 
-void MicroPrintf(const char *format, ...)
-{
+void MicroPrintf(const char* format, ...) {
   va_list args;
   va_start(args, format);
   VMicroPrintf(format, args);
   va_end(args);
 }
 
-int MicroSnprintf(char *buffer, size_t buf_size, const char *format, ...)
-{
+int MicroSnprintf(char* buffer, size_t buf_size, const char* format, ...) {
   va_list args;
   va_start(args, format);
   int result = MicroVsnprintf(buffer, buf_size, format, args);
@@ -61,9 +55,8 @@ int MicroSnprintf(char *buffer, size_t buf_size, const char *format, ...)
   return result;
 }
 
-int MicroVsnprintf(char *buffer, size_t buf_size, const char *format,
-                   va_list vlist)
-{
+int MicroVsnprintf(char* buffer, size_t buf_size, const char* format,
+                   va_list vlist) {
   return DebugVsnprintf(buffer, buf_size, format, vlist);
 }
-#endif // !defined(TF_LITE_STRIP_ERROR_STRINGS)
+#endif  // !defined(TF_LITE_STRIP_ERROR_STRINGS)
