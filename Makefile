@@ -7,7 +7,7 @@ OUTPUT_DIR := _build
 # Size of the user stack in bytes. Must be multiple of 4.
 RIOTEE_STACK_SIZE:= 1024
 # Size of retained memory in bytes including STACK_SIZE.
-RIOTEE_RAM_RETAINED_SIZE:= 8192
+RIOTEE_RAM_RETAINED_SIZE:= 32768
 
 
 ifndef RIOTEE_SDK_ROOT
@@ -15,8 +15,11 @@ ifndef RIOTEE_SDK_ROOT
 endif
 
 SRC_FILES = \
-  $(PRJ_ROOT)/src/main.cc \
-  $(PRJ_ROOT)/src/models/hello_world_int8_model_data.cc
+  $(PRJ_ROOT)/src/main.cpp \
+  $(PRJ_ROOT)/src/models/hello_world_int8_model_data.cpp \
+  $(PRJ_ROOT)/src/riotee_board/debug_log.cpp \
+  $(PRJ_ROOT)/src/riotee_board/micro_time.cpp \
+  $(PRJ_ROOT)/src/riotee_board/system_setup.cpp 
 
 INC_DIRS = \
   $(PRJ_ROOT)/include \
@@ -28,6 +31,10 @@ INC_DIRS = \
 
 LIB_DIRS = \
   $(PRJ_ROOT)
-LIB_FILES += -ltensorflow-microlite
+LIB_FILES += -ltensorflow-microlite 
+
+USER_DEFINES = -DDISABLE_CAP_MONITOR
+USER_DEFINES += -DARM_MATH_DSP
+USER_DEFINES += -DTF_LITE_STATIC_MEMORY
 
 include $(RIOTEE_SDK_ROOT)/Makefile

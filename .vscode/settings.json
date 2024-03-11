@@ -1,5 +1,5 @@
 {
-    "rioteeSdkRoot": "/Users/janstiefel/code/Riotee_SDK",
+    "rioteeSdkRoot": "/Users/janstiefel/code/fork/Riotee_SDK",
     "operSys": "Linux",
     "gnuInstallRoot": "/Applications/ArmGNUToolchain/13.2.Rel1/arm-none-eabi/bin/",
     "files.associations": {
@@ -8,7 +8,10 @@
         "cstdint": "cpp",
         "string": "cpp",
         "*.tcc": "cpp",
-        "cstdio": "cpp"
+        "cstdio": "cpp",
+        "limits": "cpp",
+        "vm1010.h": "c",
+        "riotee_gpio.h": "c"
     },
     "editor.formatOnSave": true,
     "cortex-debug.variableUseNaturalFormat": true,
