@@ -3,7 +3,7 @@
 This is a template project for developing a Riotee application.
 The Makefile-based project optionally supports Visual Studio Code.
 
-## Usage
+## TFLM Instructions
 
 Follow the instructions to create TFLM files.
 
