@@ -106,13 +106,13 @@ int16_t samples[8192];
 int main(void)
 {
 	riotee_uart_init(PIN_D1, RIOTEE_UART_BAUDRATE_115200);
-	// tflite::InitializeTarget();
-	// uint64_t startTicks = 0;
-	// uint64_t endTicks = 0;
-	// riotee_timing_now(&startTicks);
-	// run_model(0.77f);
-	// riotee_timing_now(&endTicks);
-	// printf("Ticks: %llu\r\n", endTicks - startTicks);
+	tflite::InitializeTarget();
+	uint64_t startTicks = 0;
+	uint64_t endTicks = 0;
+	riotee_timing_now(&startTicks);
+	run_model(0.77f);
+	riotee_timing_now(&endTicks);
+	printf("Ticks: %llu\r\n", endTicks - startTicks);
 	int rc;
 
 	for (;;)
