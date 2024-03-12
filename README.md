@@ -11,16 +11,16 @@ Follow the instructions to create TFLM files.
 git clone git@github.com:tensorflow/tflite-micro.git
 ```
 
-Create the lib and copy it from gen/cortex_m_generic_cortex-m4+fp_default/lib into root directory.
+Create the lib and copy it from `gen/cortex_m_generic_cortex-m4+fp_default/lib` into root directory.
 
 ```shell
 make -f tensorflow/lite/micro/tools/make/Makefile TARGET=cortex_m_generic TARGET_ARCH=cortex-m4+fp OPTIMIZED_KERNEL_DIR=cmsis_nn TARGET_TOOLCHAIN_ROOT=[PATH TO TOOLCHAIN] microlite
 ```
 
-Create tenserflow src and headers. Copy ./tree to root directory and rename it to tensorflow:
+Create tenserflow src and headers. Copy `./tree` to root directory and rename it to `tensorflow`:
 
 ```shell
-python tensorflow/lite/micro/tools/project_generation/create_tflm_tree.py ./tree --rename_cc_to_cpp --makefile_options "TARGET=cortex_m_generic TARGET_ARCH=cortex-m4+fp OPTIMIZED_KERNEL_DIR=cmsis_nn TARGET_TOOLCHAIN_ROOT=/Applications/ArmGNUToolchain/13.2.Rel1/arm-none-eabi/bin/"
+python tensorflow/lite/micro/tools/project_generation/create_tflm_tree.py ./tree --rename_cc_to_cpp --makefile_options "TARGET=cortex_m_generic TARGET_ARCH=cortex-m4+fp OPTIMIZED_KERNEL_DIR=cmsis_nn TARGET_TOOLCHAIN_ROOT=[PATH TO TOOLCHAIN]"
 ```
 
 ## Usage
