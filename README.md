@@ -5,6 +5,26 @@ The Makefile-based project optionally supports Visual Studio Code.
 
 ## Usage
 
+Follow the instructions to create TFLM files.
+
+```shell
+git clone git@github.com:tensorflow/tflite-micro.git
+```
+
+Create the lib and copy it from gen/cortex_m_generic_cortex-m4+fp_default/lib into root directory.
+
+```shell
+make -f tensorflow/lite/micro/tools/make/Makefile TARGET=cortex_m_generic TARGET_ARCH=cortex-m4+fp OPTIMIZED_KERNEL_DIR=cmsis_nn TARGET_TOOLCHAIN_ROOT=[PATH TO TOOLCHAIN] microlite
+```
+
+Create tenserflow src and headers. Copy ./tree to root directory and rename it to tensorflow:
+
+```shell
+python tensorflow/lite/micro/tools/project_generation/create_tflm_tree.py ./tree --rename_cc_to_cpp --makefile_options "TARGET=cortex_m_generic TARGET_ARCH=cortex-m4+fp OPTIMIZED_KERNEL_DIR=cmsis_nn TARGET_TOOLCHAIN_ROOT=/Applications/ArmGNUToolchain/13.2.Rel1/arm-none-eabi/bin/"
+```
+
+## Usage
+
 Follow the instructions to install the [Riotee SDK](https://github.com/NessieCircuits/Riotee_Runtime) and its dependencies to a location on your computer.
 
 If you want to develop your application in a GitHub repository, make sure you're signed in to GitHub and click on the green `Use this template` button on this repository's GitHub page to create your own repository from this template.
@@ -26,27 +46,32 @@ If you want to build the project from the commandline or some other IDE, set an 
 ```shell
 export RIOTEE_SDK_ROOT=[PATH TO RIOTEE SDK]
 ```
+
 If the arm-none-eabi-gcc toolchain is not on your path, point to it with another environment variable:
 
 ```shell
 export GNU_INSTALL_ROOT=[PATH TO TOOLCHAIN]
 ```
+
 As an alternative to these environment variables, you can also set the two variables at the top of the project's [Makefile](./Makefile).
 
 Now build the project and upload it to your Riotee device with
+
 ```
 make flash
 ```
+
 ### Visual Studio Code
 
- - Install Visual Studio Code from the [official website](https://code.visualstudio.com/) and open it.
- - On the left panel select `Extensions`, search for the `C/C++ Extension Pack` and install it.
- - Open the project's folder via `File->Open Folder`.
+- Install Visual Studio Code from the [official website](https://code.visualstudio.com/) and open it.
+- On the left panel select `Extensions`, search for the `C/C++ Extension Pack` and install it.
+- Open the project's folder via `File->Open Folder`.
 
 Adjust the three configuration keys in [.vscode/settings.json](.vscode/settings.json) according to your setup:
- - `rioteeSdkRoot`: Path to the Riotee SDK
- - `operSys`: Mac, Linux or Win32
- - `gnuInstallRoot`: Location of arm-none-eabi toolchain, leave empty if it is in your `PATH` variable already.
+
+- `rioteeSdkRoot`: Path to the Riotee SDK
+- `operSys`: Mac, Linux or Win32
+- `gnuInstallRoot`: Location of arm-none-eabi toolchain, leave empty if it is in your `PATH` variable already.
 
 Restart Visual Studio Code.
 Open `main.c` and check that code-completion works and that all imports are correctly resolved. For example, selecting `riotee_wait_cap_charged()` and pressing `F12` should take you straight into the SDK's code.

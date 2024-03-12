@@ -1,5 +1,5 @@
 _build/
 .vscode/
 flashing
-tensorflow
+tensorflow/
 libtensorflow-microlite.a
