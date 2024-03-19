@@ -5,10 +5,10 @@ PRJ_ROOT := .
 OUTPUT_DIR := _build
 
 # Size of the user stack in bytes. Must be multiple of 4.
-RIOTEE_STACK_SIZE:= 1024
+RIOTEE_STACK_SIZE:= 4096
 # Size of retained memory in bytes including STACK_SIZE.
-RIOTEE_RAM_RETAINED_SIZE:= 32768
-
+RIOTEE_RAM_RETAINED_SIZE:= 53248
+#RIOTEE_RAM_RETAINED_SIZE:= 40960 + 8192 + 4096 = 53248
 
 ifndef RIOTEE_SDK_ROOT
   $(error RIOTEE_SDK_ROOT is not set)
@@ -16,7 +16,9 @@ endif
 
 SRC_FILES = \
   $(PRJ_ROOT)/src/main.cpp \
-  $(PRJ_ROOT)/src/models/hello_world_int8_model_data.cpp \
+  $(PRJ_ROOT)/src/micro_speech.cpp \
+  $(PRJ_ROOT)/src/models/micro_speech_quantized_model_data.cpp \
+  $(PRJ_ROOT)/src/models/audio_preprocessor_int8_model_data.cpp \
   $(PRJ_ROOT)/src/riotee_board/debug_log.cpp \
   $(PRJ_ROOT)/src/riotee_board/micro_time.cpp \
   $(PRJ_ROOT)/src/riotee_board/system_setup.cpp 

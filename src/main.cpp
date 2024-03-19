@@ -17,61 +17,13 @@
 
 #include "shtc3.h"
 #include "vm1010.h"
+// #include "testdata/yes_1000ms_audio_data.h"
+#include "micro_speech.h"
 
 #define PIN_MICROPHONE_DISABLE PIN_D5
-
-namespace
-{
-	using HelloWorldOpResolver = tflite::MicroMutableOpResolver<1>;
-
-	TfLiteStatus RegisterOps(HelloWorldOpResolver &op_resolver)
-	{
-		TF_LITE_ENSURE_STATUS(op_resolver.AddFullyConnected());
-		return kTfLiteOk;
-	}
-}
+#define MICROPHONE_SAMPLES 8000
 
 void suspend_callback(void) {}
-
-TfLiteStatus run_model(float inputf)
-{
-	const tflite::Model *model =
-		::tflite::GetModel(g_hello_world_int8_model_data);
-	TFLITE_CHECK_EQ(model->version(), TFLITE_SCHEMA_VERSION);
-
-	HelloWorldOpResolver op_resolver;
-	TF_LITE_ENSURE_STATUS(RegisterOps(op_resolver));
-
-	// Arena size just a round number. The exact arena usage can be determined
-	// using the RecordingMicroInterpreter.
-	constexpr int kTensorArenaSize = 3000;
-	uint8_t tensor_arena[kTensorArenaSize];
-
-	tflite::MicroInterpreter interpreter(model, op_resolver, tensor_arena,
-										 kTensorArenaSize);
-
-	TF_LITE_ENSURE_STATUS(interpreter.AllocateTensors());
-
-	TfLiteTensor *input = interpreter.input(0);
-	TFLITE_CHECK_NE(input, nullptr);
-
-	TfLiteTensor *output = interpreter.output(0);
-	TFLITE_CHECK_NE(output, nullptr);
-
-	// float output_scale = output->params.scale;
-	// int output_zero_point = output->params.zero_point;
-
-	int input_int8 = inputf / input->params.scale + input->params.zero_point;
-
-	input->data.int8[0] = input_int8;
-	TF_LITE_ENSURE_STATUS(interpreter.Invoke());
-
-	// float y_pred = (output->data.int8[0] - output_zero_point) * output_scale;
-	// printf("Predicted value: %f\r\n", y_pred);
-	// printf("Golden value: %f\r\n", sin(inputf));
-
-	return kTfLiteOk;
-}
 
 void startup_callback(void)
 {
@@ -102,18 +54,13 @@ void turnoff_callback(void)
 	vm1010_exit();
 }
 
-int16_t samples[8192];
+int16_t samples[MICROPHONE_SAMPLES];
 int main(void)
 {
 	riotee_uart_init(PIN_D1, RIOTEE_UART_BAUDRATE_115200);
-	tflite::InitializeTarget();
-	uint64_t startTicks = 0;
-	uint64_t endTicks = 0;
-	riotee_timing_now(&startTicks);
-	run_model(0.77f);
-	riotee_timing_now(&endTicks);
-	printf("Ticks: %llu\r\n", endTicks - startTicks);
 	int rc;
+	printf("Starting up\r\n");
+	// TestAudioSample("yes", g_yes_1000ms_audio_data, g_yes_1000ms_audio_data_size);
 
 	for (;;)
 	{
@@ -126,33 +73,35 @@ int main(void)
 		riotee_sleep_ticks(70);
 
 		/* Wait for wake-on-sound signal from microphone */
-		// if ((rc = vm1010_wait4sound()) != RIOTEE_SUCCESS)
-		// {
-		// 	printf("Error while waiting for sound: %d", rc);
-		// 	riotee_gpio_set(PIN_MICROPHONE_DISABLE);
-		// 	continue;
-		// }
+		if ((rc = vm1010_wait4sound()) != RIOTEE_SUCCESS)
+		{
+			printf("Error while waiting for sound: %d", rc);
+			riotee_gpio_set(PIN_MICROPHONE_DISABLE);
+			continue;
+		}
 		/* Wait until microphone can be sampled (see VM1010 datasheet)*/
 		riotee_sleep_ticks(5);
 		// printf("Sampling..");
-		rc = vm1010_sample(samples, 8192, 2);
+		rc = vm1010_sample(samples, MICROPHONE_SAMPLES, 2);
 		/* Disable the microphone */
-		// riotee_gpio_set(PIN_MICROPHONE_DISABLE);
+		riotee_gpio_set(PIN_MICROPHONE_DISABLE);
 		if (rc != RIOTEE_SUCCESS)
 		{
 			printf("Error during sampling: %d", rc);
 		}
-		printf("UU");
-		// Print samples to UART
-		for (int i = 0; i < 8192; i++)
-		{
-			// if (samples[i] < -1600)
-			// {
-			// 	continue;
-			// }
-			riotee_putc((uint8_t)(0x00FF & samples[i]));
-			riotee_putc((uint8_t)(samples[i] >> 8));
-			// printf("%d\r\n", samples[i]);
-		}
+		riotee_sleep_ms(500);
+		TestAudioSample("who knows", samples, MICROPHONE_SAMPLES);
+		riotee_sleep_ms(500);
+		// printf("UU");
+		// // // Print samples to UART
+		// for (int i = 0; i < MICROPHONE_SAMPLES; i++)
+		// {
+		// 	// if (samples[i] < -1600)
+		// 	// {
+		// 	// 	continue;
+		// 	// }
+		// 	riotee_putc((uint8_t)(0x00FF & samples[i]));
+		// 	riotee_putc((uint8_t)(samples[i] >> 8));
+		// }
 	}
 }
